@@ -48,3 +48,4 @@ void MC33926::off(int n)
 	analogWrite(_PWMD1[n], 0);
 	analogWrite(_PWMD2[n], 0);
 }
+
