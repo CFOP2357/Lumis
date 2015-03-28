@@ -1,0 +1,3 @@
+CompassSensor KEYWORD1
+getAngle	KEYWORD2
+setAddress	KEYWORD2
