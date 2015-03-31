@@ -102,7 +102,11 @@ void Movimientos::moverb(int speed){
 	_drive2.off(0);
 	_drive2.rev(1, speed);
 }
-void Movimientos::stop(){
+void Movimientos::sleep(){
 	_drive1.off();
 	_drive2.off();
+}
+void Movimientos::on(){
+	_drive1.on();
+	_drive2.on();
 }

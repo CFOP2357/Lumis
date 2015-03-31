@@ -26,7 +26,7 @@ class Movimientos {
    void moverb(int speed);
    void turnleft(int speed);
    void turnright(int speed);
-   void stop();
+   void sleep();
   private:
   	MC33926 _drive1= MC33926();
   	MC33926 _drive2= MC33926();

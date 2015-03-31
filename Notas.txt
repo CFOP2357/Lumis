@@ -1,0 +1,1 @@
+Necessary es una carpeta en donde se incluyen librerías ya hechas que se necesitan
