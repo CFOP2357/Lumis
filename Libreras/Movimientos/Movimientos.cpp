@@ -1,76 +1,108 @@
 #include "Movimientos.h"
 
 #include <MC33926.h>
-Movimientos::Movimientos(int P1M1IN1, int P1M1IN2, int P1M1PWMD1, int P1M1PWMD2, int P1M2IN1, int P1M2IN2, int P1M2PWMD1, int P1M2PWMD2, int P2M1IN1, int P2M1IN2, int P2M1PWMD1, int P2M1PWMD2, int P2M2IN1, int P2M2IN2, int P2M2PWMD1, int P2M2PWMD2)
+Movimientos::Movimientos(int en1, int en2)
 {
-	_puente1.setM1(P1M1IN1, P1M1IN2, P1M1PWMD1, P1M1PWMD2);
-	_puente1.setM2(P1M2IN1, P1M2IN2, P1M2PWMD1, P1M2PWMD2);
-	_puente2.setM1(P2M1IN1, P2M1IN2, P2M1PWMD1, P2M1PWMD2);
-	_puente2.setM2(P2M2IN1, P2M2IN2, P2M2PWMD1, P2M2PWMD2);
+	drive1.setEn(en1);
+	drive.setEn(en2);
+}
+void Movimientos::setMotorA(int in1, int in2, int pwm1, int pwm2){
+	drive1.setM1(in1, in2, pwm1, pm2);
+}
+void Movimientos::setMotorB(int in1, int in2, int pwm1, int pwm2){
+	drive1.setM2(in1, in2, pwm1, pm2);
+}
+void Movimientos::setMotorC(int in1, int in2, int pwm1, int pwm2){
+	drive2.setM1(in1, in2, pwm1, pm2);
+}
+void Movimientos::setMotorD(int in1, int in2, int pwm1, int pwm2){
+	drive2.setM2(in1, in2, pwm1, pm2);
+}
+void Movimientos::motorAFwd(int speed){
+	_drive1.fwd(0, speed);
+}
+void Movimientos::motorBFwd(int speed){
+	_drive1.fwd(1, speed);
+}
+void Movimientos::motorCFwd(int speed){
+	_drive2.fwd(0, speed);
+}
+void Movimientos::motorDFwd(int speed){
+	_drive2.fwd(1, speed);
+}
+void Movimientos::motorARev(int speed){
+	_drive1.rev(0, speed);
+}
+void Movimientos::motorBRev(int speed){
+	_drive1.rev(1, speed);
+}
+void Movimientos::motorCRev(int speed){
+	_drive2.rev(0, speed);
+}
+void Movimientos::motorDRev(int speed){
+	_drive2.rev(1, speed);
 }
 void Movimientos::movefront(int speed){
-	_puente1.fwd(1, speed);
-	_puente1.fwd(2, speed);
-	_puente2.fwd(1, speed);
-	_puente2.fwd(2, speed);
+	_drive1.fwd(0, speed);
+	_drive1.fwd(1, speed);
+	_drive2.fwd(0, speed);
+	_drive2.fwd(1, speed);
 }
 void Movimientos::moveback(int speed){
-	_puente1.rev(1, speed);
-	_puente1.rev(2, speed);
-	_puente2.rev(1, speed);
-	_puente2.rev(2, speed);
+	_drive1.rev(0, speed);
+	_drive1.rev(1, speed);
+	_drive2.rev(0, speed);
+	_drive2.rev(1, speed);
 }
 void Movimientos::moveright(int speed){
-	_puente1.fwd(1, speed);
-	_puente1.rev(2, speed);
-	_puente2.fwd(1, speed);
-	_puente2.rev(2, speed);
+	_drive1.fwd(0, speed);
+	_drive1.rev(1, speed);
+	_drive2.fwd(0, speed);
+	_drive2.rev(1, speed);
 }
 void Movimientos::moveleft(int speed){
-	_puente1.rev(1, speed);
-	_puente1.fwd(2, speed);
-	_puente2.rev(1, speed);
-	_puente2.fwd(2, speed);
+	_drive1.rev(0, speed);
+	_drive1.fwd(1, speed);
+	_drive2.rev(0, speed);
+	_drive2.fwd(1, speed);
 }
 void Movimientos::turnleft(int speed){
-	_puente1.fwd(1, speed);
-	_puente1.rev(2, speed);
-	_puente2.rev(1, speed);
-	_puente2.fwd(2, speed);
+	_drive1.fwd(0, speed);
+	_drive1.rev(1, speed);
+	_drive2.rev(0, speed);
+	_drive2.fwd(1, speed);
 }
 void Movimientos::turnright(int speed){
-	_puente1.rev(1, speed);
-	_puente1.fwd(2, speed);
-	_puente2.fwd(1, speed);
-	_puente2.rev(2, speed);
+	_drive1.rev(0, speed);
+	_drive1.fwd(1, speed);
+	_drive2.fwd(0, speed);
+	_drive2.rev(1, speed);
 }
 void Movimientos::movelf(int speed){
-	_puente1.fwd(1, speed);
-	_puente1.off(2);
-	_puente2.fwd(1, speed);
-	_puente2.off(2);
+	_drive1.fwd(0, speed);
+	_drive1.off(1);
+	_drive2.fwd(0, speed);
+	_drive2.off(1);
 }
 void Movimientos::movelb(int speed){
-	_puente1.rev(1, speed);
-	_puente1.off(2);
-	_puente2.rev(1, speed);
-	_puente2.off(2);
+	_drive1.rev(0, speed);
+	_drive1.off(1);
+	_drive2.rev(0, speed);
+	_drive2.off(1);
 }
 void Movimientos::moverf(int speed){
-	_puente1.off(1);
-	_puente1.fwd(2, speed);
-	_puente2.off(1);
-	_puente2.fwd(2, speed);
+	_drive1.off(0);
+	_drive1.fwd(1, speed);
+	_drive2.off(0);
+	_drive2.fwd(1, speed);
 }
 void Movimientos::moverb(int speed){
-	_puente1.off(1);
-	_puente1.rev(2, speed);
-	_puente2.off(1);
-	_puente2.rev(2, speed);
+	_drive1.off(0);
+	_drive1.rev(1, speed);
+	_drive2.off(0);
+	_drive2.rev(1, speed);
 }
 void Movimientos::stop(){
-	_puente1.off(1);
-	_puente1.off(2);
-	_puente2.off(1);
-	_puente2.off(2);
+	_drive1.off();
+	_drive2.off();
 }

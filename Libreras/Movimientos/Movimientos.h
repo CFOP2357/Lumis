@@ -3,7 +3,19 @@
 #include "MC33926.h"
 class Movimientos {
   public:	
-   Movimientos(int P1M1IN1, int P1M1IN2, int P1M1PWMD1, int P1M1PWMD2, int P1M2IN1, int P1M2IN2, int P1M2PWMD1, int P1M2PWMD2, int P2M1IN1, int P2M1IN2, int P2M1PWMD1, int P2M1PWMD2, int P2M2IN1, int P2M2IN2, int P2M2PWMD1, int P2M2PWMD2);
+   Movimientos(int en1, int en2);
+   void setMotorA(int in1, int in2, int pwm1, int pwm2);
+   void setMotorB(int in1, int in2, int pwm1, int pwm2);
+   void setMotorC(int in1, int in2, int pwm1, int pwm2);
+   void setMotorD(int in1, int in2, int pwm1, int pwm2);
+   void MotorAFwd(int speed);
+   void MotorBFwd(int speed);
+   void MotorCFwd(int speed);
+   void MotorDFwd(int speed);
+   void MotorARev(int speed);
+   void MotorBRev(int speed);
+   void MotorCRev(int speed);
+   void MotorDRev(int speed);
    void movefront(int speed);
    void moveback(int speed);
    void moveright(int speed);
@@ -16,7 +28,7 @@ class Movimientos {
    void turnright(int speed);
    void stop();
   private:
-  	MC33926 _puente1= MC33926();
-  	MC33926 _puente2= MC33926();
+  	MC33926 _drive1= MC33926();
+  	MC33926 _drive2= MC33926();
 };
 #endif
