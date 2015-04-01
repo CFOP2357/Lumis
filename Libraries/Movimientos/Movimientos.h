@@ -8,14 +8,14 @@ class Movimientos {
    void setMotorB(int in1, int in2, int pwm1, int pwm2);
    void setMotorC(int in1, int in2, int pwm1, int pwm2);
    void setMotorD(int in1, int in2, int pwm1, int pwm2);
-   void MotorAFwd(int speed);
-   void MotorBFwd(int speed);
-   void MotorCFwd(int speed);
-   void MotorDFwd(int speed);
-   void MotorARev(int speed);
-   void MotorBRev(int speed);
-   void MotorCRev(int speed);
-   void MotorDRev(int speed);
+   void motorAFwd(int speed);
+   void motorBFwd(int speed);
+   void motorCFwd(int speed);
+   void motorDFwd(int speed);
+   void motorARev(int speed);
+   void motorBRev(int speed);
+   void motorCRev(int speed);
+   void motorDRev(int speed);
    void movefront(int speed);
    void moveback(int speed);
    void moveright(int speed);
@@ -27,6 +27,7 @@ class Movimientos {
    void turnleft(int speed);
    void turnright(int speed);
    void sleep();
+   void on();
   private:
   	MC33926 _drive1= MC33926();
   	MC33926 _drive2= MC33926();
