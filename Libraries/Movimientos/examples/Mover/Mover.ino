@@ -14,6 +14,8 @@ void loop() {
   delay(500);
   robot.movefront(255);
   delay(500);
+  robot.moveback(255);
+  delay(500);
   robot.sleep();
   delay(500);
 }
