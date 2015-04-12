@@ -4,18 +4,14 @@
 class Movimientos {
   public:	
    Movimientos(int en1, int en2);
-   void setMotorA(int in1, int in2, int pwm1, int pwm2);
-   void setMotorB(int in1, int in2, int pwm1, int pwm2);
-   void setMotorC(int in1, int in2, int pwm1, int pwm2);
-   void setMotorD(int in1, int in2, int pwm1, int pwm2);
-   void motorAFwd(int speed);
-   void motorBFwd(int speed);
-   void motorCFwd(int speed);
-   void motorDFwd(int speed);
-   void motorARev(int speed);
-   void motorBRev(int speed);
-   void motorCRev(int speed);
-   void motorDRev(int speed);
+   void motor1Fwd(int speed);
+   void motor2Fwd(int speed);
+   void motor3Fwd(int speed);
+   void motor4Fwd(int speed);
+   void motor1Rev(int speed);
+   void motor2Rev(int speed);
+   void motor3Rev(int speed);
+   void motor4Rev(int speed);
    void movefront(int speed);
    void moveback(int speed);
    void moveright(int speed);

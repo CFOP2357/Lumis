@@ -1,44 +1,36 @@
 #include "Movimientos.h"
 #include <MC33926.h>
-Movimientos::Movimientos(int en1, int en2)
+Movimientos::Movimientos()
 {
-	_drive1.setEn(en1);
-	_drive2.setEn(en2);
+	_drive.setEn(30);
+    _drive2.setEn(31);
+	_drive.setM1(38, 39, 2, 3);
+	_drive.setM2(37, 36, 4, 5); 
+    _drive2.setM1(34, 35, 6, 7); 
+    _drive2.setM2(33, 32, 9, 8);
 }
-void Movimientos::setMotorA(int in1, int in2, int pwm1, int pwm2){
-	_drive1.setM1(in1, in2, pwm1, pwm2);
-}
-void Movimientos::setMotorB(int in1, int in2, int pwm1, int pwm2){
-	_drive1.setM2(in1, in2, pwm1, pwm2);
-}
-void Movimientos::setMotorC(int in1, int in2, int pwm1, int pwm2){
-	_drive2.setM1(in1, in2, pwm1, pwm2);
-}
-void Movimientos::setMotorD(int in1, int in2, int pwm1, int pwm2){
-	_drive2.setM2(in1, in2, pwm1, pwm2);
-}
-void Movimientos::motorAFwd(int speed){
+void Movimientos::motor1Fwd(int speed){
 	_drive1.fwd(0, speed);
 }
-void Movimientos::motorBFwd(int speed){
+void Movimientos::motor2Fwd(int speed){
 	_drive1.fwd(1, speed);
 }
-void Movimientos::motorCFwd(int speed){
+void Movimientos::motor3Fwd(int speed){
 	_drive2.fwd(0, speed);
 }
-void Movimientos::motorDFwd(int speed){
+void Movimientos::motor4Fwd(int speed){
 	_drive2.fwd(1, speed);
 }
-void Movimientos::motorARev(int speed){
+void Movimientos::motor1Rev(int speed){
 	_drive1.rev(0, speed);
 }
-void Movimientos::motorBRev(int speed){
+void Movimientos::motor2Rev(int speed){
 	_drive1.rev(1, speed);
 }
-void Movimientos::motorCRev(int speed){
+void Movimientos::motor3Rev(int speed){
 	_drive2.rev(0, speed);
 }
-void Movimientos::motorDRev(int speed){
+void Movimientos::motor4Rev(int speed){
 	_drive2.rev(1, speed);
 }
 void Movimientos::movefront(int speed){
