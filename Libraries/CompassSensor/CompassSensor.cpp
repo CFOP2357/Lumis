@@ -1,7 +1,14 @@
 #include "Arduino.h"
 #include "Wire.h"
 #include "CompassSensor.h"
-
+int CompassSensor::calibratedAngles(int starting,int current){
+  int res;
+  res=current-starting;
+  if(res<0){
+    res=res+360;
+  }
+  return res;
+}
 int CompassSensor::getAngle(){
   	Wire.beginTransmission(address);
   	Wire.write("A");
