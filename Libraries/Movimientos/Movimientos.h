@@ -3,7 +3,7 @@
 #include "MC33926.h"
 class Movimientos {
   public:	
-   Movimientos(int en1, int en2);
+   Movimientos();
    void motor1Fwd(int speed);
    void motor2Fwd(int speed);
    void motor3Fwd(int speed);
@@ -16,10 +16,10 @@ class Movimientos {
    void moveback(int speed);
    void moveright(int speed);
    void moveleft(int speed);
-   void movelf(int speed);
-   void movelb(int speed);
-   void moverf(int speed);
-   void moverb(int speed);
+   void diagonalright(int speed);
+   void diagonalleft(int speed);
+   void diagonalbackright(int speed);
+   void diagonalbackleft(int speed);
    void turnleft(int speed);
    void turnright(int speed);
    void sleep();

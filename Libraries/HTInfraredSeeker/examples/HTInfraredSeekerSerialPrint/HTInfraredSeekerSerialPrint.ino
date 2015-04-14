@@ -9,6 +9,5 @@ void setup() {
 void loop() {
   seekerInput=seeker.ReadAC();
   Serial.print("Strength     Direction");
-  Serial.print(seekerInput.Strength+"  "); 
-  Serial.println(seekerInput.Direction);
+  Serial.println(seekerInput.Strength);
 }
