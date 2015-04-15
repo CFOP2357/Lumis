@@ -18,8 +18,8 @@ void loop() { //1_M1-M2
 	drive.on(); //enciende puente
         drive2.on();
         //avanza
-	drive.rev(0, 255); //motor 1 avanza (pin1-HIGH y pin2-LOW)
-	drive.rev(1, 255);
+	drive.fwd(0, 255); //motor 1 avanza (pin1-HIGH y pin2-LOW)
+	drive.fwd(1, 255);
         drive2.fwd(0, 255);
         drive2.fwd(1, 255);
 }
