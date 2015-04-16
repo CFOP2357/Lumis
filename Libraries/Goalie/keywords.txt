@@ -1,0 +1,9 @@
+Goalie KEYWORD1
+gteEnemy KEYWORD2
+getSelf KEYWORD2
+setEnemy KEYWORD2
+setSelf KEYWORD2
+setYellow KEYWORD2
+setBlue KEYWORD2
+calibrate KEYWORD2
+getInfo KEYWORD2
