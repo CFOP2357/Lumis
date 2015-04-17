@@ -36,7 +36,6 @@ pixelIn pixelInf;
 static int i = 0;
 int j;
 uint16_t blocks;
-char buf[32];
 blocks = pixy.getBlocks();
 if (blocks){
 	i++;
