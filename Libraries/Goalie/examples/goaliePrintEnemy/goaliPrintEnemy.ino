@@ -3,15 +3,17 @@
 #include <Pixy.h>
 
 Goalie pxy=Goalie();
-
-void setup() { 
+Pixy pd;
+void setup() {
+  Serial.begin(9600);
+ pd.init(); 
   pxy.setYellow(0);
-  pxy.setBlue(1);
-  pxy.calibrate();
+  pxy.setBlue(5);
+  pxy.calibrate(pd);
 }
 
 void loop(){
-  pixelIn k=pxy.getInfo(pxy.getEnemy());
+  pixelIn k=pxy.getEnemy(pd);
   Serial.print("area:"+(String)k.area);
   Serial.print("x:"+(String)k.x);
   Serial.println("y:"+(String)k.y);
