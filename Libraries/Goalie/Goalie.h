@@ -1,6 +1,7 @@
 #ifndef Goalie_h
 #define Goalie_h
 #include "Arduino.h"
+#include "Pixy.h"
 	struct pixelIn{
 		int area;
 		int height;
@@ -16,13 +17,13 @@
 			int enemy;
 			int self;
 		public:
-			int getEnemy();
-			int getSelf();
 			void setEnemy(int index);
 			void setSelf(int index);
 			void setYellow(int index);
 			void setBlue(int index);
-			void calibrate();
-			pixelIn getInfo(int index);
+			void calibrate(Pixy send);
+			pixelIn getInfo(int index,Pixy ps);
+			pixelIn getEnemy(Pixy px);
+			pixelIn getSelf(Pixy px);
 	};
 #endif
