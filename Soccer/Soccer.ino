@@ -13,6 +13,7 @@ InfraredSeeker seeker=InfraredSeeker();
 InfraredInput seekerInput;
 bool oriented=false;
 bool closeB=false;
+
 int startingAngle;
 
 void setup() {
@@ -21,6 +22,7 @@ void setup() {
   
   compass.setAddress(0x21);
   startingAngle=compass.getAngle();
+  
 }
 
 void loop() {
@@ -42,10 +44,7 @@ void followball(byte k,byte f){
     //robot.on();
     switch(k){
       case 0:
-      if(!closeB)
         robot.diagonalbackright(255);
-      else
-        robot.moveright(255);
       break;
       case 1:
       robot.moveback(255);
@@ -94,31 +93,31 @@ void followball(byte k,byte f){
       robot.sleep();
       break;
       case 1:
-      robot.moveleft(255);
+      robot.diagonalbackleft(255);
       break;
       case 2:
-      robot.moveright(150);
+      robot.diagonalbackleft(100);
       break;
       case 3:
-      robot.moveright(120);
+      robot.moveright(150);
       break;
       case 4:
-      robot.moveright(50);
+      robot.moveright(100);
       break;
       case 5:
       robot.movefront(255);
       break;
       case 6:
-      robot.moveleft(50);
+      robot.moveleft(100);
       break;
       case 7:
-      robot.moveleft(120);
-      break;
-      case 8:
       robot.moveleft(150);
       break;
+      case 8:
+      robot.diagonalbackright(100);
+      break;
       case 9:
-      robot.moveright(255);
+      robot.diagonalbackright(255);
       break;
       
     }

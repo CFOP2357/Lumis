@@ -15,50 +15,45 @@ void Goalie::setYellow(int index){
 void Goalie::setBlue(int index){
 	blue=index;
 }
-void Goalie::calibrate(Pixy send){
-	int area=0;
-	int area2=0;
-	pixelIn pixels=getInfo(yellow,send);
-	area=pixels.area;
-	pixels=getInfo(blue,send);
-	area2=pixels.area;
-	if(area>area2){
-		setEnemy(yellow);
-		setSelf(blue);
-	}
-	else{
-		setEnemy(blue);
-		setSelf(yellow);
-	}
-}
-pixelIn Goalie::getInfo(int index,Pixy ps){
-pixelIn pixelInf;
+
+char Goalie::getInfo(int index,Pixy ps){
+
 static int i = 0;
 int j;
+int x;
 uint16_t blocks;
-blocks = pixy.getBlocks();
+blocks = ps.getBlocks();
 if (blocks){
 	i++;
 	if (i%50==0){
+			if(ps.blocks[index].x>110 && ps.blocks[index].x<=210){
+				return 'c';
+			}
+			else if(ps.blocks[index].x<=110){
+				return 'i';
+			}
+			else if(ps.blocks[index].x>210){
+				return 'd';
+			}
 			
-				pixelInf.x=ps.blocks[index].x;
+			/*	pixelInf.x=ps.blocks[index].x;
 				pixelInf.y=ps.blocks[index].y;
 				pixelInf.height=ps.blocks[index].height;
 				pixelInf.width=ps.blocks[index].width;
-				pixelInf.area=pixelInf.height*pixelInf.width;
+				pixelInf.area=pixelInf.height*pixelInf.width;*/   
+
 
 			
 		}
 	}
-	return pixelInf;
 }
-pixelIn Goalie::getEnemy(Pixy px){
-	pixelIn enemyIn;
+char Goalie::getEnemy(Pixy px){
+	char enemyIn;
 	enemyIn=getInfo(enemy,px);
 	return enemyIn;
 }
-pixelIn Goalie::getSelf(Pixy px){
-	pixelIn selfIn;
+char Goalie::getSelf(Pixy px){
+	char selfIn;
 	selfIn=getInfo(self,px);
 	return selfIn;
 }
