@@ -1,3 +1,4 @@
+
 #include "Ultrasonic.h"
 
 #include <SPI.h>
@@ -22,6 +23,7 @@ CompassSensor compass=CompassSensor();
 
 InfraredSeeker seeker=InfraredSeeker();
 InfraredInput seekerInput;
+int millisSet=0;
 bool oriented=false;
 bool closeB=false;
 
@@ -56,7 +58,48 @@ void loop() {
       orient(angle);
     }
   }
-  followball(seekerInput,&millisSet);
+  followball(seekerInput);
+}
+void kick(){
+  robot.movefront(255);
+  delay(500);
+  InfraredInput aux=seeker.ReadAC();
+  int dist;
+  while(aux.StrengthAll<=180){
+    aux=seeker.ReadAC();
+    dist=ultrasonic.Ranging(CM);
+    if(dist>=15){
+      randomSeed(analogRead(0));
+      int side=random(0, 2);
+      millisSet=millis();
+      int k=millisSet-millis();
+      if(side==0){
+        while(analogRead(A0)>50&&k<1000){//qtr o color
+          k=millisSet-millis();
+          robot.moveleft(255);
+        }
+      }
+      else{
+        while(analogRead(A0)>50&&k<1000){//qtr o color
+          k=millisSet-millis();
+          robot.moveright(255);
+        }
+      }
+      
+      if(Goalie.getEnemyV(pd)!='c'){
+        if(Goalie.getEnemyV(pd)=='d'){
+          //robot.turnright(100);
+        }
+        if(Goalie.getEnemyV(pd)=='i'){
+          //robot.turnleft(100);
+        }
+      }
+      else{
+        //kickBall();
+      }
+      
+    }
+  }
 }
 void followball(InfraredInput in){
   //LEJOS
@@ -182,44 +225,3 @@ else{
 }
 }
 
-void kick(){
-  robot.movefront(255);
-  delay(500);
-  InfraredInput aux=seeker.ReadAC();
-  int dist;
-  while(aux.StrengthAll<=180){
-    aux=seeker.ReadAC();
-    dist=ultrasonic.Ranging(CM);
-    if(dist>=15){
-      randomSeed(analogRead(0));
-      int side=random(0, 2);
-      millisSet=millis;
-      int k=millisSet-millis();
-      if(side==0){
-        while(analogRead(A0)>50&&k<1000){//qtr o color
-          k=millisSet-millis();
-          robot.moveleft(255);
-        }
-      }
-      else{
-        while(analogRead(A0)>50&&k<1000){//qtr o color
-          k=millisSet-millis();
-          robot.moveright(255);
-        }
-      }
-      
-      if(Goalie.getEnemyV(pd)!='c'){
-        if(Goalie.getEnemyV(pd)=='d'){
-          //robot.turnright(100);
-        }
-        if(Goalie.getEnemyV(pd)=='i'){
-          //robot.turnleft(100);
-        }
-      }
-      else{
-        //kickBall();
-      }
-      
-    }
-  }
-}
