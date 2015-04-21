@@ -34,11 +34,21 @@ InfraredInput InfraredSeeker::PopulateValues(byte* buffer)
 {
 	InfraredInput Data;
 	Data.Direction = buffer[0];
-	Data.Strength1=buffer[1];
-	Data.Strength2=buffer[2];
-	Data.Strength3=buffer[3];
-	Data.Strength4=buffer[4];
-	Data.Strength5=buffer[5];
+	if(buffer[0] != 0)
+	{
+		if(buffer[0] % 2 == 0)
+		{
+			Data.Strength = (buffer[buffer[0] / 2] + buffer[buffer[0] / 2 + 1]) / 2;
+		}
+		else
+		{
+			Data.Strength = buffer[buffer[0] / 2 + 1];
+		}
+	}
+	else
+	{
+		Data.Strength = 0;
+	}
 	return Data;
 }
 InfraredInput InfraredSeeker::ReadAC()

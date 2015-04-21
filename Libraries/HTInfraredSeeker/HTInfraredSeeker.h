@@ -4,11 +4,7 @@
 	struct InfraredInput
 	{
 	  	byte Direction;
-	  	byte Strength1;
-		byte Strength2;
-		byte Strength3;
-		byte Strength4;
-		byte Strength5;
+	  	byte Strength;
 	};
 	class InfraredSeeker
 	{

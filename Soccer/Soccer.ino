@@ -1,208 +1,153 @@
-
-#include "Ultrasonic.h"
-
-#include <SPI.h>
-#include <Pixy.h>
-#include <Goalie.h>
-
 #include <CompassSensor.h>
 
 #include <Movimientos.h>
 #include <Wire.h>
 #include <HTInfraredSeeker.h>
 
-
-
-
-Ultrasonic ultrasonic(12,13);
-
+#include <SPI.h>
+#include <Goalie.h>
+#include <Pixy.h>
 
 Movimientos robot=  Movimientos();
 
 CompassSensor compass=CompassSensor();
 
+Goalie pxy=Goalie();
+Pixy pd;
+char a='s';
+
 InfraredSeeker seeker=InfraredSeeker();
 InfraredInput seekerInput;
-int millisSet=0;
 bool oriented=false;
 bool closeB=false;
-
+int btn;
 int startingAngle;
-Pixy pd;
-
-Goalie gl=Goalie();
-
-
 
 void setup() {
-  Serial.begin(9600);
+  //Serial.begin(9600);
   Wire.begin();
   
   compass.setAddress(0x21);
   startingAngle=compass.getAngle();
-  while(gl.getEnemy()==0){
-      gl.calibrate(pd);
-  }
+  pinMode(24, INPUT_PULLUP);  
 }
 
 void loop() {
-  
+  Btn();
   int current=compass.getAngle();
   int angle=compass.calibratedAngles(startingAngle,current);
   seekerInput=seeker.ReadAC();
-  if(!closeB){
     orient(angle);
+    //Serial.println(angle);
     while(!oriented){
       current=compass.getAngle();
       angle=compass.calibratedAngles(startingAngle,current);
       orient(angle);
     }
-  }
-  followball(seekerInput);
+    followball(seekerInput.Direction, seekerInput.Strength);
 }
-void kick(){
-  robot.movefront(255);
-  delay(500);
-  InfraredInput aux=seeker.ReadAC();
-  int dist;
-  while(aux.StrengthAll<=180){
-    aux=seeker.ReadAC();
-    dist=ultrasonic.Ranging(CM);
-    if(dist>=15){
-      randomSeed(analogRead(0));
-      int side=random(0, 2);
-      millisSet=millis();
-      int k=millisSet-millis();
-      if(side==0){
-        while(analogRead(A0)>50&&k<1000){//qtr o color
-          k=millisSet-millis();
-          robot.moveleft(255);
-        }
-      }
-      else{
-        while(analogRead(A0)>50&&k<1000){//qtr o color
-          k=millisSet-millis();
-          robot.moveright(255);
-        }
-      }
-      
-      if(Goalie.getEnemyV(pd)!='c'){
-        if(Goalie.getEnemyV(pd)=='d'){
-          //robot.turnright(100);
-        }
-        if(Goalie.getEnemyV(pd)=='i'){
-          //robot.turnleft(100);
-        }
-      }
-      else{
-        //kickBall();
-      }
-      
-    }
-  }
-}
-void followball(InfraredInput in){
+void followball(byte k,byte f){
   //LEJOS
+  if(f<170){
     //robot.on();
-    if(in.StrengthAll>=130){
-    if(in.StrengthAll<=180){
-      closeB=true;
-    }
-    else{
-      closeB=false;
-    }
-    switch(in.Direction){
-      
+    switch(k){
       case 0:
-        if(in.StrengthAll<=180){
-          robot.turnleft(255);
-        }
-        else{
-          robot.diagonalbackright(255);
-        }
+        robot.diagonalbackright(255);
       break;
       case 1:
-        if(in.StrengthAll<=180){
-          robot.turnright(255);
-        }
-        else{
-          robot.moveback(255);
-        }
+      robot.moveback(255);
+      closeB=false;
       break;
       case 2:
-        if(in.StrengthAll<=180){
-          robot.turnright(255);
-        }
-        else{
-          robot.moveback(255);
-        }
+      robot.moveback(255);
+      closeB=false;
       break;
       case 3:
-        if(in.StrengthAll<=180){
-          robot.turnright(255);
-        }
-        else{
-          robot.moveright(255);
-        }
+      robot.moveright(255);
+      closeB=false;
       break;
       case 4:
-        if(in.StrengthAll<=180){
-          robot.turnright(100);
-        }
-        else{
-          robot.moveright(255);
-        }
+      robot.moveright(255);
+      closeB=false;
       break;
       case 5:
-      if(in.StrengthAll<=180){
-        kick();
+      robot.movefront(255);
+      break;
+      case 6:
+      robot.moveleft(255);
+      closeB=false;
+      break;
+      case 7:
+      robot.moveleft(255);
+      closeB=false;
+      break;
+      case 8:
+      robot.moveback(255);
+      closeB=false;
+      break;
+      case 9:
+      robot.moveback(255);
+      closeB=false;
+      break;
+      
+    }
+  }
+  //CERCA
+  else{
+  closeB=true;  
+ switch(k){
+      case 0:
+      robot.sleep();
+      break;
+      case 1:
+      robot.diagonalbackleft(255);
+      break;
+      case 2:
+      robot.diagonalbackleft(100);
+      break;
+      case 3:
+      robot.moveright(150);
+      break;
+      case 4:
+      robot.moveright(100);
+      break;
+      case 5:
+      robot.movefront(0);
+      a='s';
+      a=pxy.getInfo(6,pd);
+      if(a=='c' || a=='d' || a=='i'){
+        if(a=='c'){
+          robot.movefront(255);
+        }
+        if(a=='d'){
+          robot.diagonalright(255);
+          delay(300);
+        }
+        if(a=='i'){
+         robot.diagonalleft(255);
+          delay(300);
+        }
+        
       }
       else{
         robot.movefront(255);
       }
       break;
       case 6:
-        if(in.StrengthAll<=180){
-          robot.turnleft(100);
-        }
-        else{
-          robot.moveleft(255);
-        }
+      robot.moveleft(100);
       break;
       case 7:
-        if(in.StrengthAll<=180){
-          robot.turnleft(255);
-        }
-        else{
-          robot.moveleft(255);
-        }
-      
+      robot.moveleft(150);
       break;
       case 8:
-        if(in.StrengthAll<=180){
-          robot.turnleft(255);
-        }
-        else{
-          robot.moveback(255);
-        }
-      
+      robot.diagonalbackright(100);
       break;
       case 9:
-        if(in.StrengthAll<=180){
-          robot.turnleft(255);
-        }
-        else{
-          robot.moveback(255);
-        }
+      robot.diagonalbackright(255);
       break;
+      
+    }
   }
-  }
-  else{
-    robot.moveback(100);
-  }
-  //CERCA
-  
-  
 }
 void orient(int ang){
 if(ang>5&&ang<355){
@@ -224,4 +169,12 @@ else{
   oriented=true;
 }
 }
-
+void Btn(){
+btn= digitalRead(24);
+        if(btn==0){
+          robot.sleep();
+        }
+        else{
+          robot.on();
+        }
+}
